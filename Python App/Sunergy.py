@@ -1,6 +1,8 @@
-from flask import Flask, render_template, request, jsonify, g, session
-from datetime import datetime, timedelta
+from flask import Flask, render_template, request, jsonify, g, session, redirect
+from datetime import datetime
 import pyodbc
+import random
+import json
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Required for session management
@@ -62,7 +64,10 @@ def home():
         # تعداد کاربران آنلاین را بر اساس طول active_users محاسبه کنید
         users_online = len(active_users)
         
-        return render_template('index.html', visits=visits, users_online=users_online, last_update=last_update)
+        # انتخاب تصادفی یک نقل‌قول
+        quote, author = random.choice(quotes)
+        
+        return render_template('index.html', visits=visits, users_online=users_online, last_update=last_update, quote=quote, author=author)
     
     except Exception as e:
         return jsonify({"error": "Error updating stats."}), 500
@@ -102,6 +107,18 @@ def calculate():
 
     except ValueError:
         return jsonify({"error": "Invalid capacity value."}), 400
+    
+
+# بارگذاری نقل قول‌ها از فایل متنی
+def load_quotes():
+    with open('quotes.txt', 'r', encoding='utf-8') as file:
+        lines = file.readlines()
+        quotes = [tuple(line.strip().split(' - ')) for line in lines]
+    return quotes
+
+quotes = load_quotes()
+
+
 
 @app.route('/calculate_capacity')
 def calculate_capacity():
