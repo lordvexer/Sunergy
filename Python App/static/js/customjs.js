@@ -86,4 +86,4 @@ document.getElementById("calculateButton").addEventListener("click", function ()
 setTimeout(() => {
     document.getElementById('fullscreen-modal').style.display = 'none';
     document.getElementById('main-content').style.display = 'block';
-}, 4000);
+}, 40000);

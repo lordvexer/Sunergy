@@ -30,6 +30,9 @@ h5 {
   margin-top: 20px;
 }
 /* Loading */
+.centerLoader{
+  text-align: -webkit-center;
+}
 #fullscreen-modal {
   position: fixed;
   top: 0;
@@ -49,12 +52,12 @@ h5 {
 }
 .sunergyname {
   color: #4f4f4f;
+  text-align: center;
   justify-self: center;
 }
 .loadingLogo{
     height: 250px;
 }
-
 /* Header ==> */
 
 .HeaderIMGFIT {
